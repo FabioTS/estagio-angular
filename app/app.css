@@ -1,6 +1,31 @@
 /* app css stylesheet */
 
-.menu {
+h1 {
+	text-align: center;
+  margin-top: 5%;
+
+}
+
+body, html {
+    height: 100%;
+}
+
+.background{
+    background: url("fundo.jpg");
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.panel{
+  margin-left: 10%;
+  margin-right: 10%;
+  }
+/*.menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
@@ -23,3 +48,4 @@
   content: "|";
   padding-right: 0.3em;
 }
+*/

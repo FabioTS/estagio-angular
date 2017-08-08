@@ -3,8 +3,9 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ngRoute',
-    'myApp.view1',
-    'myApp.view2',
+    'myApp.all_cards',
+    'myApp.new_card',
+    'myApp.delete_card',
     'ui.bootstrap'
 ])
 
@@ -12,22 +13,29 @@ angular.module('myApp', [
         $locationProvider.hashPrefix('!');
 
         $routeProvider
-            .when('/view1', {
-                templateUrl: 'view1/view1.html',
+            .when('/all_cards', {
+                templateUrl: 'all_cards/all_cards.html',
                 controller: 'View1Ctrl',
                 controllerAs: 'vm'
             })
-            .when('/view2', {
-                templateUrl: 'view2/view2.html',
+            .when('/new_card', {
+                templateUrl: 'new_card/new_card.html',
                 controller: 'View2Ctrl',
+                controllerAs: 'vm'
+            })
+            .when('/delete_card', {
+                templateUrl: 'delete_card/delete_card.html',
+                controller: 'deleteCtrl',
                 controllerAs: 'vm'
             });
 
 
-        $routeProvider.otherwise({redirectTo: '/view1'});
+        $routeProvider.otherwise({redirectTo: '/all_cards'});
 
     }])
 
     .constant('config', {
-        "URL": "http://estagio.zagu.com.br/"
+        "URL": "http://estagio.zagu.com.br/",
+        // Chave secreta para a API
+        "SECRET_KEY": "df46fd8a503e18125b8d997dacedf4dc"
     });

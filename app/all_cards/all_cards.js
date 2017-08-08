@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute'])
+angular.module('myApp.all_cards', ['ngRoute'])
 
 
 
@@ -9,12 +9,12 @@ angular.module('myApp.view1', ['ngRoute'])
 
         vm.sendGet = function () {
             $http({
+                url: config.URL + "cards",
                 method: "GET",
                 headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': 'Bearer seuToken'
+                  'Authorization': 'Bearer ' + config.SECRET_KEY
                 },
-                url: config.URL + "cards",
             }).then(function (response) {
                 vm.data = response.data;
                 vm.dataView = JSON.stringify(vm.data, null, "\t");
