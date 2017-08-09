@@ -7,9 +7,12 @@
 		<div class="panel-body">
 
 			<!-- <pre>{{ vm.dataView }}</pre> -->
-			<div class="alert alert-info" role="alert" ng-if="user_msg">
+			<div class="alert alert-info alert-dismissible" role="alert" ng-if="user_msg">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
 				<strong ng-bind="user_msg"></strong>
-			</div>
+			</div>			
 
 			<div ng-repeat="card in vm.data">
 
@@ -45,9 +48,11 @@
 					<li class="list-group-item">
 						<div class="btn-group" role="group" aria-label="Opções">
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCard{{card.id}}">Editar</button>
-							<button type="button" class="btn btn-danger" ng-click="vm.deleteCard(card.id)">Excluir</button>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteCard{{card.id}}">Excluir</button>
+							<button type="button" class="btn btn-info" data-toggle="modal" data-target="#paymentsCard{{card.id}}" ng-click="vm.getPayments(card)">Pagamentos</button>
+							<!-- <button type="button" class="btn btn-danger" ng-click="vm.deleteCard(card.id)">Excluir</button> -->
 							<!-- <button type="button" class="btn btn-info" ng-href="#!/payments">Pagamentos</button> -->
-							<a class="btn btn-info" href="#!/payments" role="button">Pagamentos</a>
+							<!-- <a class="btn btn-info" href="#!/payments" role="button">Pagamentos</a> -->
 						</div>
 					</li>
 
@@ -59,75 +64,207 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">Editar Cartão</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal">
+								<h4 class="modal-title" id="exampleModalLabel">Editar Cartão
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button></h4>
+								</div>
+								<div class="modal-body">
+									<form class="form-horizontal">
 
-									<div class="form-group">
-										<label for="number_input" class="col-md-5 control-label">Número</label>
-										<div class="col-sm-3">
-										<input type="text" class="form-control" ng-init="edit_number = card.number" ng-model="edit_number" placeholder="0000 0000 0000 0000">
+										<div class="form-group">
+											<label for="number_input" class="col-md-5 control-label">Número</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" ng-init="edit_number = card.number" ng-model="edit_number" placeholder="0000 0000 0000 0000">
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label for="number_input" class="col-md-5 control-label">Bandeira</label>
-										<div class="col-sm-3">
-										<input type="text" class="form-control" ng-init="edit_brand = card.brand" ng-model="edit_brand" placeholder="visa/mastercard">
+										<div class="form-group">
+											<label for="number_input" class="col-md-5 control-label">Bandeira</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" ng-init="edit_brand = card.brand" ng-model="edit_brand" placeholder="visa/mastercard">
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label for="number_input" class="col-md-5 control-label">Mês de expiração</label>
-										<div class="col-sm-3">
-										<input type="number" class="form-control" ng-init="edit_exp_month = card.exp_month" ng-model="edit_exp_month" min="1" max="12" placeholder="1-12">
+										<div class="form-group">
+											<label for="number_input" class="col-md-5 control-label">Mês de expiração</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" ng-init="edit_exp_month = card.exp_month" ng-model="edit_exp_month" min="1" max="12" placeholder="1-12">
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label for="number_input" class="col-md-5 control-label">Ano de expiração</label>
-										<div class="col-sm-3">
-										<input type="number" class="form-control" ng-init="edit_exp_year = card.exp_year" ng-model="edit_exp_year" min="2017" placeholder="2017">
+										<div class="form-group">
+											<label for="number_input" class="col-md-5 control-label">Ano de expiração</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" ng-init="edit_exp_year = card.exp_year" ng-model="edit_exp_year" min="2017" placeholder="2017">
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label for="name_input" class="col-md-5 control-label">Nome</label>
-										<div class="col-sm-3">
-										<input type="text" class="form-control" ng-init="edit_name = card.name" ng-model="edit_name" placeholder="João Silva">
+										<div class="form-group">
+											<label for="name_input" class="col-md-5 control-label">Nome</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" ng-init="edit_name = card.name" ng-model="edit_name" placeholder="João Silva">
+											</div>
 										</div>
-									</div>
 
-									<div class="form-group">
-										<label for="limit_input" class="col-md-5 control-label">Limite</label>
-										<div class="col-sm-3">
-										<input type="number" class="form-control" ng-init="edit_limit = card.limit" ng-model="edit_limit" placeholder="999999">
-										</div>
-									</div>		  
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-								<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editCard(card.id, edit_number, edit_brand, edit_exp_month, edit_exp_year, edit_name, edit_limit)"
-			                    >Confirmar</button>
+										<div class="form-group">
+											<label for="limit_input" class="col-md-5 control-label">Limite</label>
+											<div class="col-sm-3">
+												<input type="number" class="form-control" ng-init="edit_limit = card.limit" ng-model="edit_limit" placeholder="999999">
+											</div>
+										</div>		  
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editCard(card.id, edit_number, edit_brand, edit_exp_month, edit_exp_year, edit_name, edit_limit)"
+									>Confirmar</button>
+								</div>
 							</div>
 						</div>
 					</div>
+
+					<div class="modal fade" id="deleteCard{{card.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<div class="centered">
+										<h3 class="modal-title">Tem certeza que deseja excluir esse cartão?</h3>
+									</div>
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="vm.deleteCard(card.id)">Excluir</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="paymentsCard{{card.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">								
+									<h4 class="modal-title">
+										<strong>Pagamentos </strong>
+										
+										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button></h4>
+										Limite disponível: {{card.available_limit}}							
+									</div>
+									<div class="modal-body">
+										<div class="alert alert-info alert-dismissible" role="alert" ng-if="pay_msg">
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<strong ng-bind="pay_msg"></strong>
+										</div>
+
+										<div ng-repeat="pay in vm.pay">
+											<ul class="list-group col-md-6">
+												<li class="list-group-item list-group-item-warning">
+													<label>Quantia:</label> {{pay.amount}}
+												</li>
+
+												<li class="list-group-item">
+													<label>Data:</label> {{pay.date | date :  "dd/MM/y HH:MM"}}
+												</li>
+
+												<li class="list-group-item">
+													<label>Status:</label> {{pay.status}}
+												</li>
+
+												<li class="list-group-item">
+													<div class="btn-group" role="group" aria-label="Opções">
+														<button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#editPayment{{pay.id}}">Editar</button>
+														<button type="button" class="btn btn-danger" ng-click="vm.deletePayment(pay)">Excluir</button>
+													</div>
+												</li>
+											</ul>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" data-target="#addPayment{{card.id}}">Adicionar</button>
+										<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade" id="addPayment{{card.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h4 class="modal-title" id="exampleModalLabel">Novo Pagamento
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button></h4>
+										</div>
+										<div class="modal-body">
+											<form class="form-horizontal">
+
+												<div class="form-group">
+													<label for="pay_input" class="col-md-4 control-label">Quantia</label>
+													<div class="col-sm-4">
+														<input type="number" class="form-control" ng-model="new_pay_amount" min="1" max="{{card.available_limit}}" placeholder="<{{card.available_limit}}">
+													</div>
+												</div>												
+
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+											<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.addPayment(card.id, new_pay_amount)" data-toggle="modal" data-target="#paymentsCard{{card.id}}"
+											>Confirmar</button>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div ng-repeat="pay in vm.pay">
+								<div class="modal fade" id="editPayment{{pay.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title" id="exampleModalLabel">Editar Pagamento
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button></h4>
+												</div>
+												<div class="modal-body">
+													<form class="form-horizontal">
+
+														<div class="form-group">
+															<label for="pay_input" class="col-md-4 control-label">Status</label>
+															<div class="col-sm-4">
+																<input type="text" class="form-control" ng-init="edit_pay_status = pay.status" ng-model="edit_pay_status" placeholder="pending/paid/failed">
+															</div>
+														</div>
+
+													</form>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+													<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editPayment(card.id, pay.id, pay.amount, edit_pay_status)"
+													>Confirmar</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+
+						<div class="panel-footer">
+
+							<button type="submit" class="btn btn-primary btn-block" ng-click="vm.sendGet()">Recarregar Informações</button>
+
+						</div>
+					</div>
 				</div>
-
-
-			</div>
-
-		</div>
-
-		<div class="panel-footer">
-
-			<button type="submit" class="btn btn-primary btn-block" ng-click="vm.sendGet()">Recarregar Cartões</button>
-
-		</div>
-	</div>
-</div>

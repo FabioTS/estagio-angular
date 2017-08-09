@@ -6,12 +6,19 @@
 		</div>
 		<div class="panel-body">
 
+			<div class="alert alert-info alert-dismissible" role="alert" ng-if="new_msg">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong ng-bind="new_msg"></strong>
+			</div>
+
 			<form class="form-horizontal">
 
 				<div class="form-group">
 					<label for="number_input" class="col-md-5 control-label">Número</label>
 					<div class="col-sm-3">
-						<input type="text" class="form-control" ng-model="card.number" placeholder="0000 0000 0000 0000">
+						<input type="text" class="form-control" ng-model="card.number" placeholder="0000 0000 0000 0000" >
 					</div>
 				</div>
 				
@@ -55,14 +62,6 @@
 		<div class="panel-footer">
 
 			<button type="submit" class="btn btn-primary btn-block" ng-click="vm.sendCard()">Adicionar cartão</button>
-			
-			<div ng-if="new_card_sucess" class="alert alert-success alert-dismissible fade in centered" id="div-msg" role="alert">
-				<strong ng-bind="new_card_sucess"></strong>
-			</div>
-
-			<div ng-if="new_card_fail" class="alert alert-danger alert-dismissible fade in centered" id="div-msg-error" role="alert">
-				<strong ng-bind="new_card_fail"></strong>
-			</div>
 			
 		</div>
 	</div>

@@ -6,25 +6,46 @@ h1 {
 
 }
 
+h3 {
+  color: red;
+}
+
 body, html {
-    height: 100%;
+  height: 100%;
 }
 
 .background{
-    background: url("fundo.jpg");
-    /* Full height */
-    height: 100%; 
+  background: url("fundo.jpg");
+  /* Full height */
+  height: 100%; 
 
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
 }
 
 .panel{
   margin-left: 10%;
   margin-right: 10%;
-  }
+}
+
+.panel-primary > .panel-heading {
+
+  background-color: #222;
+  border-color: #080808;
+}
+
+.list-group-item.active {
+
+  background-color: #222;
+  border-color: #080808;
+}
+
+.list-group-item.active:hover {
+  background-color: #333;
+  border-color: #080808;
+}
 /*.menu {
   list-style: none;
   border-bottom: 0.1em solid black;
