@@ -5,7 +5,7 @@ angular.module('myApp', [
     'ngRoute',
     'myApp.all_cards',
     'myApp.new_card',
-    'myApp.delete_card',
+    'myApp.payments',
     'ui.bootstrap'
 ])
 
@@ -23,9 +23,9 @@ angular.module('myApp', [
                 controller: 'View2Ctrl',
                 controllerAs: 'vm'
             })
-            .when('/delete_card', {
-                templateUrl: 'delete_card/delete_card.html',
-                controller: 'deleteCtrl',
+            .when('/payments', {
+                templateUrl: 'payments/payments.html',
+                controller: 'paymentsCtrl',
                 controllerAs: 'vm'
             });
 

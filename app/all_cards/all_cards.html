@@ -1,11 +1,133 @@
-<div class="container">
+<div class="container" ng-init="vm.sendGet()">
 
-    <h1>Cartões</h1>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h1 class="centered">Cartões</h1>
+		</div>
+		<div class="panel-body">
 
-    <button ng-click="vm.sendGet()">Ver todos os cartoes</button>
+			<!-- <pre>{{ vm.dataView }}</pre> -->
+			<div class="alert alert-info" role="alert" ng-if="user_msg">
+				<strong ng-bind="user_msg"></strong>
+			</div>
 
-    <br>
+			<div ng-repeat="card in vm.data">
 
-    <pre>{{ vm.dataView }}</pre>
+				<ul class="list-group col-md-4">
+					<li class="list-group-item active">
+						<label>Número:</label> {{card.number}}
+					</li>
 
+					<li class="list-group-item">
+						<label>Bandeira:</label> {{card.brand}}
+					</li>
+
+					<li class="list-group-item">
+						<label>Mês de expiração:</label> {{card.exp_month}}
+					</li>
+
+					<li class="list-group-item">
+						<label>Ano de expiração:</label> {{card.exp_year}}
+					</li>
+
+					<li class="list-group-item">
+						<label>Nome:</label> {{card.name}}
+					</li>
+
+					<li class="list-group-item">
+						<label>Limite:</label> {{card.limit}}
+					</li>
+
+					<li class="list-group-item">
+						<label>Limite disponível:</label> {{card.available_limit}}
+					</li>
+
+					<li class="list-group-item">
+						<div class="btn-group" role="group" aria-label="Opções">
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCard{{card.id}}">Editar</button>
+							<button type="button" class="btn btn-danger" ng-click="vm.deleteCard(card.id)">Excluir</button>
+							<!-- <button type="button" class="btn btn-info" ng-href="#!/payments">Pagamentos</button> -->
+							<a class="btn btn-info" href="#!/payments" role="button">Pagamentos</a>
+						</div>
+					</li>
+
+
+				</ul>
+
+				<!-- Modal -->
+				<div class="modal fade" id="editCard{{card.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Editar Cartão</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form class="form-horizontal">
+
+									<div class="form-group">
+										<label for="number_input" class="col-md-5 control-label">Número</label>
+										<div class="col-sm-3">
+										<input type="text" class="form-control" ng-init="edit_number = card.number" ng-model="edit_number" placeholder="0000 0000 0000 0000">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="number_input" class="col-md-5 control-label">Bandeira</label>
+										<div class="col-sm-3">
+										<input type="text" class="form-control" ng-init="edit_brand = card.brand" ng-model="edit_brand" placeholder="visa/mastercard">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="number_input" class="col-md-5 control-label">Mês de expiração</label>
+										<div class="col-sm-3">
+										<input type="number" class="form-control" ng-init="edit_exp_month = card.exp_month" ng-model="edit_exp_month" min="1" max="12" placeholder="1-12">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="number_input" class="col-md-5 control-label">Ano de expiração</label>
+										<div class="col-sm-3">
+										<input type="number" class="form-control" ng-init="edit_exp_year = card.exp_year" ng-model="edit_exp_year" min="2017" placeholder="2017">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="name_input" class="col-md-5 control-label">Nome</label>
+										<div class="col-sm-3">
+										<input type="text" class="form-control" ng-init="edit_name = card.name" ng-model="edit_name" placeholder="João Silva">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="limit_input" class="col-md-5 control-label">Limite</label>
+										<div class="col-sm-3">
+										<input type="number" class="form-control" ng-init="edit_limit = card.limit" ng-model="edit_limit" placeholder="999999">
+										</div>
+									</div>		  
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+								<button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="vm.editCard(card.id, edit_number, edit_brand, edit_exp_month, edit_exp_year, edit_name, edit_limit)"
+			                    >Confirmar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+
+		<div class="panel-footer">
+
+			<button type="submit" class="btn btn-primary btn-block" ng-click="vm.sendGet()">Recarregar Cartões</button>
+
+		</div>
+	</div>
 </div>
